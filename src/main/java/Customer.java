@@ -24,10 +24,6 @@ public abstract class Customer {
         this.companyOverdraftDiscount = companyOverdraftDiscount;
     }
 
-    public void withdraw(double sum, String currency) {
-        account.withdraw(sum, currency);
-    }
-
     protected abstract double getCompanyOverdraftDiscountBasedOnPremium();
 
     public String getName() {
