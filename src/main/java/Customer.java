@@ -75,4 +75,8 @@ public abstract class Customer {
     private String getFullName() {
         return name + " " + surname + " ";
     }
+
+    public String printCustomer() {
+        return name + " " + email;
+    }
 }
