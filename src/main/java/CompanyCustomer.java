@@ -10,6 +10,6 @@ public class CompanyCustomer extends Customer {
 
     @Override
     protected double getCompanyOverdraftDiscountBasedOnPremium() {
-        return getAccount().getType().isPremium() ? getCompanyOverdraftDiscount() / 2 : getCompanyOverdraftDiscount();
+        return getAccount().isPremium() ? getCompanyOverdraftDiscount() / 2 : getCompanyOverdraftDiscount();
     }
 }
