@@ -38,11 +38,9 @@ public class Customer {
     private void calculateCustomerMoney(double sum, double overdraftDiscount) {
         switch (customerType) {
             case COMPANY:
-                // we are in overdraft
                 weAreInOverdraft(sum, overdraftDiscount);
                 break;
             case PERSON:
-                // we are in overdraft
                 weAreInOverdraft(sum, 1);
                 break;
         }
