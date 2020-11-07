@@ -10,7 +10,7 @@ public class CustomerTest {
         Account account = getAccountByTypeAndMoney(false, 34.0);
         Customer customer = getPersonCustomer(account);
         customer.getAccount().withdraw(10, "EUR");
-        assertThat(account.getMoney(), is(24.0));
+        assertThat(account.getAccountMoney().getMoney(), is(24.0));
     }
 
     @Test
@@ -18,7 +18,7 @@ public class CustomerTest {
         Account account = getAccountByTypeAndMoney(false, -10.0);
         Customer customer = getPersonCustomer(account);
         customer.getAccount().withdraw(10, "EUR");
-        assertThat(account.getMoney(), is(-22.0));
+        assertThat(account.getAccountMoney().getMoney(), is(-22.0));
     }
 
     @Test
@@ -26,7 +26,7 @@ public class CustomerTest {
         Account account = getAccountByTypeAndMoney(true, 34.0);
         Customer customer = getPersonCustomer(account);
         customer.getAccount().withdraw(10, "EUR");
-        assertThat(account.getMoney(), is(24.0));
+        assertThat(account.getAccountMoney().getMoney(), is(24.0));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class CustomerTest {
         Account account = getAccountByTypeAndMoney(true, -10.0);
         Customer customer = getPersonCustomer(account);
         customer.getAccount().withdraw(10, "EUR");
-        assertThat(account.getMoney(), is(-21.0));
+        assertThat(account.getAccountMoney().getMoney(), is(-21.0));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class CustomerTest {
         Account account = getAccountByTypeAndMoney(false, 34);
         Customer customer = getCompanyCustomer(account);
         customer.getAccount().withdraw(10, "EUR");
-        assertThat(account.getMoney(), is(24.0));
+        assertThat(account.getAccountMoney().getMoney(), is(24.0));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class CustomerTest {
         Account account = getAccountByTypeAndMoney(false, -10);
         Customer customer = getCompanyCustomer(account);
         customer.getAccount().withdraw(10, "EUR");
-        assertThat(account.getMoney(), is(-21.0));
+        assertThat(account.getAccountMoney().getMoney(), is(-21.0));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class CustomerTest {
         Account account = getAccountByTypeAndMoney(true, 34);
         Customer customer = getCompanyCustomer(account);
         customer.getAccount().withdraw(10, "EUR");
-        assertThat(account.getMoney(), is(24.0));
+        assertThat(account.getAccountMoney().getMoney(), is(24.0));
     }
 
     @Test
@@ -66,7 +66,7 @@ public class CustomerTest {
         Account account = getAccountByTypeAndMoney(true, -10);
         Customer customer = getCompanyCustomer(account);
         customer.getAccount().withdraw(10, "EUR");
-        assertThat(account.getMoney(), is(-20.25));
+        assertThat(account.getAccountMoney().getMoney(), is(-20.25));
     }
 
     @Test
@@ -98,8 +98,8 @@ public class CustomerTest {
         Account account = new Account(accountType, 9);
         Customer customer = getPersonCustomer(account);
         account.setIban("RO023INGB434321431241");
-        account.setMoney(34.0);
-        account.setCurrency("EUR");
+        AccountMoney accountMoney = new AccountMoney(34.0, "EUR");
+        account.setAccountMoney(accountMoney);
         return customer;
     }
 
@@ -107,8 +107,8 @@ public class CustomerTest {
         AccountType accountType = new AccountType(premium);
         Account account = new Account(accountType, 9);
         account.setIban("RO023INGB434321431241");
-        account.setMoney(money);
-        account.setCurrency("EUR");
+        AccountMoney accountMoney = new AccountMoney(money, "EUR");
+        account.setAccountMoney(accountMoney);
         return account;
     }
 

@@ -6,9 +6,7 @@ public class Account {
 
     private int daysOverdrawn;
 
-    private double money;
-
-    private String currency;
+    private AccountMoney accountMoney;
 
     private Customer customer;
 
@@ -45,18 +43,7 @@ public class Account {
     }
 
     public void withdraw(double sum, String currency) {
-        if (!this.currency.equals(currency)) {
-            throw new RuntimeException("Can't extract withdraw " + currency);
-        }
-        weAreInOverdraft(sum);
-    }
-
-    private void weAreInOverdraft(double sum) {
-        if (money < 0) {
-            money = (money - sum) - sum * overdraftFee() * customer.getCompanyOverdraftDiscountBasedOnPremium();
-        } else {
-            money = money - sum;
-        }
+        accountMoney.withdraw(sum, currency, overdraftFee(), customer.getCompanyOverdraftDiscountBasedOnPremium());
     }
 
     public int getDaysOverdrawn() {
@@ -71,12 +58,12 @@ public class Account {
         this.iban = iban;
     }
 
-    public void setMoney(double money) {
-        this.money = money;
+    public void setAccountMoney(AccountMoney accountMoney) {
+        this.accountMoney = accountMoney;
     }
 
-    public double getMoney() {
-        return money;
+    public AccountMoney getAccountMoney() {
+        return accountMoney;
     }
 
     public Customer getCustomer() {
@@ -91,16 +78,9 @@ public class Account {
         return type;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
 
     @Override
     public String toString() {
-        return "Account: IBAN: " + iban + ", Money: " + money + ", Account type: " + type;
+        return "Account: IBAN: " + iban + ", Money: " + accountMoney.getMoney() + ", Account type: " + type;
     }
 }

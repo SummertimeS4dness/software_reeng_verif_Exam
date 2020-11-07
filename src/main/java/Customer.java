@@ -64,7 +64,7 @@ public abstract class Customer {
     }
 
     public String printCustomerMoney() {
-        String accountDescription = "Account: IBAN: " + account.getIban() + ", Money: " + account.getMoney();
+        String accountDescription = "Account: IBAN: " + account.getIban() + ", Money: " + account.getAccountMoney().getMoney();
         return getFullName() + accountDescription;
     }
 
