@@ -9,15 +9,7 @@ public class CompanyCustomer extends Customer {
     }
 
     @Override
-    protected void weAreInOverdraft(double sum) {
-        if (getAccount().getMoney() < 0) {
-            getAccount().setMoney((getAccount().getMoney() - sum) - sum * getAccount().overdraftFee() * getCompanyOverdraftDiscountBasedOnPremium());
-        } else {
-            getAccount().setMoney(getAccount().getMoney() - sum);
-        }
-    }
-
-    private double getCompanyOverdraftDiscountBasedOnPremium() {
+    protected double getCompanyOverdraftDiscountBasedOnPremium() {
         return getAccount().getType().isPremium() ? getCompanyOverdraftDiscount() / 2 : getCompanyOverdraftDiscount();
     }
 }

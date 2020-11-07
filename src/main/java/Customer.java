@@ -25,13 +25,10 @@ public abstract class Customer {
     }
 
     public void withdraw(double sum, String currency) {
-        if (!account.getCurrency().equals(currency)) {
-            throw new RuntimeException("Can't extract withdraw " + currency);
-        }
-        weAreInOverdraft(sum);
+        account.withdraw(sum, currency);
     }
 
-    protected abstract void weAreInOverdraft(double sum);
+    protected abstract double getCompanyOverdraftDiscountBasedOnPremium();
 
     public String getName() {
         return name;
@@ -76,8 +73,7 @@ public abstract class Customer {
     }
 
     public String printCustomerAccount() {
-        return "Account: IBAN: " + account.getIban() + ", Money: "
-                + account.getMoney() + ", Account type: " + account.getType();
+        return account.toString();
     }
 
     private String getFullName() {

@@ -4,11 +4,7 @@ public class PersonCustomer extends Customer {
     }
 
     @Override
-    protected void weAreInOverdraft(double sum) {
-        if (getAccount().getMoney() < 0) {
-            getAccount().setMoney((getAccount().getMoney() - sum) - sum * getAccount().overdraftFee());
-        } else {
-            getAccount().setMoney(getAccount().getMoney() - sum);
-        }
+    protected double getCompanyOverdraftDiscountBasedOnPremium() {
+        return 1;
     }
 }
