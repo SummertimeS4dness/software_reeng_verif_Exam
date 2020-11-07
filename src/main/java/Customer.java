@@ -1,4 +1,4 @@
-public class Customer {
+public abstract class Customer {
 
     private String name;
     private String surname;
@@ -28,31 +28,10 @@ public class Customer {
         if (!account.getCurrency().equals(currency)) {
             throw new RuntimeException("Can't extract withdraw " + currency);
         }
-        if (account.getType().isPremium()) {
-            calculateCustomerMoney(sum, companyOverdraftDiscount / 2);
-        } else {
-            calculateCustomerMoney(sum, companyOverdraftDiscount);
-        }
+        weAreInOverdraft(sum);
     }
 
-    private void calculateCustomerMoney(double sum, double overdraftDiscount) {
-        switch (customerType) {
-            case COMPANY:
-                weAreInOverdraft(sum, overdraftDiscount);
-                break;
-            case PERSON:
-                weAreInOverdraft(sum, 1);
-                break;
-        }
-    }
-
-    private void weAreInOverdraft(double sum, double overdraftDiscount) {
-        if (account.getMoney() < 0) {
-            account.setMoney((account.getMoney() - sum) - sum * account.overdraftFee() * overdraftDiscount);
-        } else {
-            account.setMoney(account.getMoney() - sum);
-        }
-    }
+    protected abstract void weAreInOverdraft(double sum);
 
     public String getName() {
         return name;
@@ -76,6 +55,14 @@ public class Customer {
 
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public double getCompanyOverdraftDiscount() {
+        return companyOverdraftDiscount;
     }
 
     public String printCustomerDaysOverdrawn() {
